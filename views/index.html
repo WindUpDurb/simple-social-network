@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Social Network</title>
+
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap-material-design/dist/css/ripples.min.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css">
+    <script src="/bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
+    <script src="/bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+
+    <link rel="stylesheet" href="./style.css">
+
+    <script src="/js/module.js"></script>
+    <script src="/js/services.js"></script>
+    <script src="/js/controllers.js"></script>
+
+
+</head>
+<body ng-app="socialNetworkApp" ng-controller="homeController">
+
+<div class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a style="color : #303F9F" class="navbar-brand" ng-href="/">WindUpDurb Social Network</a>
+        </div>
+
+
+        <!--Login Field if !activeuser-->
+        <div class="navbar-form navbar-right" ng-if="!activeUser">
+            <form id="login"  ng-submit="submitLogin(credentials)">
+                <fieldset>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <input ng-model="credentials.username" type="text" class="form-control" id="inputEmail" placeholder="Username">
+
+                        </div>
+
+                        <div class="col-md-10">
+                            <input ng-model="credentials.password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        </div>
+
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-primary" style="color: #303F9F">Login</button>
+                            <button ui-sref="registration" type="button" class="btn btn-primary" style="color: #303F9F">Register</button>
+
+                        </div>
+
+
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+
+        <!--Logout field if activeUser-->
+
+        <div class="navbar-form navbar-right" ng-if="activeUser">
+            <div class="col-md-10">
+                Hello, {{activeUser.username}}
+            </div>
+            <div class="col-md-10">
+                <button type="button" ng-click="submitLogout()" class="btn btn-primary" style="color: #303F9F">Logout</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<br>
+
+<div class="container">
+    <ui-view>
+
+    </ui-view>
+</div>
+
+
+</body>
+</html>

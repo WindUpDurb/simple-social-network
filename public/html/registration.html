@@ -1,0 +1,29 @@
+<div class="text-center jumbotron">
+    <h1>Register a New Account</h1>
+    <br>
+
+
+    <form id="login"  ng-submit="submitRegistration(newAccount)">
+        <fieldset>
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input ng-model="newAccount.username" type="text" class="form-control" id="inputEmail" placeholder="Enter a new Username" required>
+
+                </div>
+
+                <div class="col-md-10">
+                    <input ng-model="newAccount.password" type="password" class="form-control" id="inputPassword" placeholder="Enter a Password" required>
+                </div>
+
+                <div class="col-md-10">
+                    <button type="submit" class="btn btn-primary" style="color: #303F9F">Register</button>
+
+                </div>
+
+            </div>
+        </fieldset>
+    </form>
+
+
+</div>
