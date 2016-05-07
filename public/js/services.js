@@ -29,6 +29,12 @@ app.service("AuthenticationServices", function ($http) {
             url : "/api/users/register",
             data : newAccount
         })
+    };
+    
+    this.saveProfileEdits = function (edits) {
+        return $http({
+            
+        })
     }
 
 });

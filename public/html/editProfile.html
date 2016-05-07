@@ -1,0 +1,24 @@
+<div class="well col-sm-8">
+    <form action="">
+        <h2 style="color: #009688">Edit Profile</h2>
+        <hr>
+        <h3>Write About Yourself</h3>
+        <br>
+        <div class="col-md-10">
+            <textarea ng-model="edits.aboutYourself" class="form-control" rows="3" id="textArea"></textarea>
+            <span class="help-block">Let the world know a little about you.</span>
+        </div>
+
+        <br>
+        <div class="col-md-10">
+            <hr>
+            <h3>Fancy Linking a Profile Photo?</h3>
+            <input ng-model="edits.linkToImage" type="text" class="form-control" id="imgLink" placeholder="Link to Image">
+        </div>
+
+        <div>
+            <button class="btn btn-primary">Submit Changes</button>
+            <button class="btn btn-danger">Cancel Changes</button>
+        </div>
+    </form>
+</div>

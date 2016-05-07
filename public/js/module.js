@@ -15,6 +15,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             controller : "registrationController",
             templateUrl : "/html/registration.html"
         })
+        .state("editProfile", {
+            url : "/editProfile",
+            controller : "editProfileController",
+            templateUrl : "/html/editProfile.html"
+        })
 
     $urlRouterProvider.otherwise("/");
 });

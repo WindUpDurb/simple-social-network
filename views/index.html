@@ -20,6 +20,7 @@
     <script src="/bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
 
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./simple-sidebar.css">
 
     <script src="/js/module.js"></script>
     <script src="/js/services.js"></script>
@@ -32,7 +33,7 @@
 <div class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a style="color : #303F9F" class="navbar-brand" ng-href="/">WindUpDurb Social Network</a>
+            <a style="color : #303F9F" class="navbar-brand" ui-sref="home">WindUpDurb Social Network</a>
         </div>
 
 
@@ -78,12 +79,49 @@
 </div>
 
 <br>
+<!--End of the Header/Navbar-->
 
-<div class="container">
-    <ui-view>
+<div id="wrapper" ng-if="activeUser">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
 
-    </ui-view>
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    {{activeUser.username}}'s Profile
+                </li>
+                <li class="sidebar-brand">
+                    <a ui-sref="editProfile">Edit Profile</a>
+                </li>
+
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <!--Navbar-->
+
+                    <div class="container">
+                        <ui-view>
+
+                        </ui-view>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -- Keep Above -->
+
 </div>
+<!-- /#wrapper -->
+
+
 
 
 </body>

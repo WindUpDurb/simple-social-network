@@ -57,3 +57,8 @@ app.controller("registrationController", function ($scope, $state, Authenticatio
     }
 
 });
+
+
+app.controller("editProfileController", function () {
+    console.log("Edit Profile Controller")
+})
