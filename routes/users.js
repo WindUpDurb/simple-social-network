@@ -40,5 +40,8 @@ router.route("/profile")
         console.log("request in node: ", request.user)
         response.send(request.user);
     })
+    .post(User.isLoggedIn, function (request, response) {
+        //User.find({username : request.body.username}, function ())
+    })
 
 module.exports = router;
