@@ -4,7 +4,6 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
-    "angular-cookies": "^1.5.5",
     "body-parser": "^1.15.1",
     "bower": "^1.7.9",
     "cookie-parser": "^1.4.1",
