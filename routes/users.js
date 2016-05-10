@@ -5,6 +5,7 @@ var router = express.Router();
 
 var User = require("../models/user");
 
+
 router.route("/")
     .get(function (request, response) {
         User.find({}, function (error, users) {
@@ -43,5 +44,6 @@ router.route("/profile")
     .post(User.isLoggedIn, function (request, response) {
         //User.find({username : request.body.username}, function ())
     })
+
 
 module.exports = router;

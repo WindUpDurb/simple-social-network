@@ -10,7 +10,13 @@ var userSchema = new mongoose.Schema({
     email : { type : String, unique : true},
     password : { type : String},
     github : { type: String },
-    google : { type : String }
+    google : { type : String },
+    biography : { type : String },
+    linksToProfiles : [{ type: String }],
+    name : { type : String },
+    photo : { type : String },
+    friends : [{ type : mongoose.Schema.Types.ObjectId, ref : "User" }],
+    friendRequests : [{ type : mongoose.Schema.Types.ObjectId, ref : "User" }]
 });
 
 userSchema.statics.register = function (userObject, callback) {
@@ -23,7 +29,7 @@ userSchema.statics.register = function (userObject, callback) {
             var user = new User({
                 email : userObject.email,
                 password : hash
-            })
+            });
             user.save(callback);
         });
     });
@@ -37,8 +43,8 @@ userSchema.methods.generateToken = function () {
 };
 
 userSchema.statics.isLoggedIn = function (request, response, next) {
-
     var token = request.cookies.accessToken;
+    console.log("cookies: ", request.cookies)
     jwt.verify(token, JWT_SECRET, function (error, payload) {
         if (error) return response.status(401).send({error : "Must be authenticated"});
 

@@ -2,7 +2,7 @@
 
 var app = angular.module("socialNetworkApp");
 
-app.controller("mainController", function ($scope, $cookies, $auth, AuthenticationServices) {
+app.controller("mainController", function ($scope, $state, $cookies, $auth, AuthenticationServices) {
     console.log("Main Controller");
 
 
@@ -14,7 +14,7 @@ app.controller("mainController", function ($scope, $cookies, $auth, Authenticati
     $scope.submitLogin = function (credentials) {
         $auth.login(credentials)
             .then(function (response) {
-
+                console.log("response: ", response.data)
             })
             .catch(function (error) {
                 console.log("Error: ", error);
@@ -25,10 +25,6 @@ app.controller("mainController", function ($scope, $cookies, $auth, Authenticati
         return $auth.logout();
     };
 
-});
-
-app.controller("authentFormController", function ($scope, $state, AuthenticationServices, $auth) {
-    console.log("Authenticatate Form Controller");
     $scope.currentState = $state.current.name;
 
     $scope.authenticate = function (provider) {
@@ -49,6 +45,12 @@ app.controller("authentFormController", function ($scope, $state, Authentication
                 })
         }
     }
+
+
+});
+
+app.controller("authentFormController", function ($scope, $state, AuthenticationServices, $auth) {
+    console.log("Authenticatate Form Controller");
 
 });
 
