@@ -19,11 +19,12 @@ app.service("AuthenticationServices", function ($http, $q) {
         })
     };
     */
+    
     this.getProfile = function () {
         return $http.get("/api/users/profile")
             .then(function (response) {
                 console.log("response: ", response);
-                //this.currentUser = response.data;
+               // this.currentUser = response.data;
                 return $q.resolve(response.data);
             })
             .catch(function (response) {
@@ -32,6 +33,10 @@ app.service("AuthenticationServices", function ($http, $q) {
                 return $q.reject(response.data);
             });
     };
+
+    this.updateProfile = function (updatedData) {
+        return $http.post("/api/users/profile", updatedData);
+    }
 
 
 });

@@ -66,7 +66,7 @@
 
         <div class="navbar-form navbar-right" ng-show="isAuthenticated()">
             <div class="col-md-10">
-                Hello, {{activeUser.username}}
+                Hello, {{ activeUser.github ||activeUser.name || activeUser.email || "User"}}
             </div>
             <div class="col-md-10">
                 <button type="button" ng-click="submitLogout()" class="btn btn-primary" style="color: #303F9F">Logout</button>
@@ -87,7 +87,7 @@
 
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    {{activeUser.username}}'s Profile
+                    {{ activeUser.github ||activeUser.name || activeUser.email || "User"}}'s Profile
                 </li>
                 <li class="sidebar-brand">
                     <a ui-sref="editProfile">Edit Profile</a>
@@ -106,6 +106,18 @@
                     <!--Navbar-->
                     <div class="container">
                         <ui-view>
+                            <div class="jumbotron">
+
+                                <h2 class="text-center">Profile Information</h2>
+                                <img src="{{activeUser.photo || 'http://dev.alurosu.com/bobo/chat/data/img/admin/default.png'}}" alt="">
+                                <br>
+                                <div>Email Address : {{activeUser.email || "Edit Profile to Update"}}</div>
+                                <div>Biography : {{activeUser.biography || "Edit Profile to Update"}}</div>
+                                <div>Number of Friends: {{activeUser.friends.length}}</div>
+                                <div>Number of Friend Requests: {{activeUser.friendRequests.length}}</div>
+
+
+                            </div>
                         </ui-view>
                     </div>
 

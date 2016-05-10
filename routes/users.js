@@ -38,12 +38,18 @@ router.delete("/logout", function (request, response) {
 
 router.route("/profile")
     .get(User.isLoggedIn, function (request, response) {
-        console.log("request in node: ", request.user)
-        response.send(request.user);
+        User.findById(request.user, function (error, user) {
+            if (error) return response.status(400).send(error);
+            response.send(user);
+        });
     })
     .post(User.isLoggedIn, function (request, response) {
-        //User.find({username : request.body.username}, function ())
-    })
+        console.log("request: ", request.body)
+        User.findByIdAndUpdate(request.body._id, request.body, function (error, updatedData) {
+            if (error) return response.status(400).send(error);
+            response.send(updatedData);
+        })
+    });
 
 
 module.exports = router;

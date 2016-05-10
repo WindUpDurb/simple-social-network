@@ -1,11 +1,11 @@
 <div class="well col-sm-8">
-    <form action="">
+    <form ng-submit="submitEdits(edits)">
         <h2 style="color: #009688">Edit Profile</h2>
         <hr>
         <h3>Write About Yourself</h3>
         <br>
         <div class="col-md-10">
-            <textarea ng-model="edits.aboutYourself" class="form-control" rows="3" id="textArea"></textarea>
+            <textarea ng-model="edits.biography" class="form-control" rows="3" id="textArea"></textarea>
             <span class="help-block">Let the world know a little about you.</span>
         </div>
 
@@ -13,7 +13,7 @@
         <div class="col-md-10">
             <hr>
             <h3>Fancy Linking a Profile Photo?</h3>
-            <input ng-model="edits.linkToImage" type="text" class="form-control" id="imgLink" placeholder="Link to Image">
+            <input ng-model="edits.photo" type="text" class="form-control" id="imgLink" placeholder="Link to Image">
         </div>
 
         <div>

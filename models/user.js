@@ -43,8 +43,26 @@ userSchema.methods.generateToken = function () {
 };
 
 userSchema.statics.isLoggedIn = function (request, response, next) {
-    var token = request.cookies.accessToken;
-    console.log("cookies: ", request.cookies)
+
+    if (!request.header("Authorization")) {
+        return response.status(401).send({ message : "PLease make sure request has an Authorization Header"});
+    }
+
+    var token = request.header("Authorization").split(" ")[1];
+
+    var payload = null;
+
+    try {
+        payload = jwt.decode(token, JWT_SECRET);
+    }
+    catch (error) {
+        return response.status(401).send({ message : error.message });
+    }
+    request.user = payload;
+    next();
+
+
+/*    var token = request.cookies.accessToken;
     jwt.verify(token, JWT_SECRET, function (error, payload) {
         if (error) return response.status(401).send({error : "Must be authenticated"});
 
@@ -53,7 +71,7 @@ userSchema.statics.isLoggedIn = function (request, response, next) {
             request.user = userData;
             next();
         }).select({password : false})
-    })
+    })*/
 
 };
 

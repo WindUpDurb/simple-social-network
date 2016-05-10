@@ -2,10 +2,6 @@
 
 var app = angular.module("socialNetworkApp", ["ui.router", "ngCookies", "satellizer"]);
 
-app.run(function (AuthenticationServices) {
-   AuthenticationServices.getProfile();
-});
-
 app.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
 
     $authProvider.github({
