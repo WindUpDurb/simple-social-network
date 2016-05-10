@@ -1,14 +1,32 @@
 "use strict";
 
-var app = angular.module("socialNetworkApp", ["ui.router", "ngCookies"]);
+var app = angular.module("socialNetworkApp", ["ui.router", "ngCookies", "satellizer"]);
 
-app.config(function ($stateProvider, $urlRouterProvider) {
+app.run(function (AuthenticationServices) {
+   AuthenticationServices.getProfile();
+});
+
+app.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
+
+    $authProvider.github({
+        clientId : "40ffd5d50a6a1e5cc866"
+    });
 
     $stateProvider
         .state("home", {
             url : "/",
-            controller : "homeController",
-            templateUrl : "/html/home.html"
+            views : {
+                "" : {
+                    controller : "authentFormController",
+                    templateUrl : "/html/home.html"
+                },
+
+                "login" : {
+                    controller : "authentFormController",
+                    templateUrl : "/html/login.html"
+                }
+            }
+
         })
         .state("registration", {
             url : "/register",

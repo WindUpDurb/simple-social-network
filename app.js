@@ -28,6 +28,7 @@ app.use(express.static(pathToStatic));
 
 app.use("/", require("./routes/index"));
 app.use("/api", require("./routes/api"));
+app.use("/auth", require("./routes/auth"));
 
 
 app.listen(PORT, function (error) {

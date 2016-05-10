@@ -2,20 +2,36 @@
 
 var mongoose = require("mongoose");
 var jwt = require("jsonwebtoken");
+var bcrypt = require("bcryptjs");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
 var userSchema = new mongoose.Schema({
-    username : { type : String, required : true, unique : true},
-    password : { type : String, required : true}
+    email : { type : String, unique : true},
+    password : { type : String},
+    github : { type: String }
 });
 
 userSchema.statics.register = function (userObject, callback) {
-    User.create(userObject, callback);
+    User.findOne({ email : userObject.email}, function (error, userData) {
+        if (error || userData) return callback(error || { error : "Email Not Available" });
+
+        bcrypt.hash(userObject.password, 12, function (error, hash) {
+            if (error) return callback(error);
+
+            var user = new User({
+                email : userObject.email,
+                password : hash
+            })
+            user.save(callback);
+        });
+    });
 };
 
 userSchema.methods.generateToken = function () {
-    var token = jwt.sign({ _id : this._id}, JWT_SECRET);
+    var token = jwt.sign({
+        _id : this._id
+    }, JWT_SECRET);
     return token;
 };
 
@@ -35,18 +51,18 @@ userSchema.statics.isLoggedIn = function (request, response, next) {
 };
 
 userSchema.statics.authenticate = function (loginData, callback) {
-    console.log("login data: ", loginData)
-    User.findOne({username : loginData.username}, function (error, userData) {
+    User.findOne({email : loginData.email}, function (error, userData) {
         console.log("here1")
-        if (error || !userData) return callback(error || {error : "Login Failed"});
+        if (error || !userData) return callback(error || {error : "Login Failed. Email or Password is Incorrect"});
 
-        if (userData.password !== loginData.password) {
-            return callback("Error : ", "Login Failed. Password or username may be incorrect");
-        }
-        var token = userData.generateToken();
-        console.log("Token: ", token);
-        callback(null, token);
-    })
+        bcrypt.compare(loginData.password, userData.password, function (error, isGood) {
+            if (error || !isGood) return callback(error || { error : "Login Failed. Email or Password Incorrect"});
+
+            var token = userData.generateToken();
+
+            callback(null, token);
+        });
+    });
 };
 
 

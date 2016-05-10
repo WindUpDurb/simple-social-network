@@ -2,7 +2,7 @@
 
 var app = angular.module("socialNetworkApp");
 
-app.service("AuthenticationServices", function ($http) {
+app.service("AuthenticationServices", function ($http, $q) {
 
     this.login = function (credentials) {
       return $http({
@@ -19,8 +19,16 @@ app.service("AuthenticationServices", function ($http) {
         })
     };
     
-    this.loggedInState = function () {
+    this.getProfile = function () {
         return $http.get("/api/users/profile")
+            .then(function (response) {
+                this.currentUser = response.data;
+                return $q.resolve(response.data);
+            })
+            .catch(function (response) {
+                this.currentUser = null;
+                return $q.reject(response.data);
+            });
     };
 
     this.registerNewAccount = function (newAccount) {
@@ -30,11 +38,6 @@ app.service("AuthenticationServices", function ($http) {
             data : newAccount
         })
     };
-    
-    this.saveProfileEdits = function (edits) {
-        return $http({
-            
-        })
-    }
+
 
 });

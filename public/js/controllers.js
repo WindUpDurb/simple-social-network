@@ -2,45 +2,36 @@
 
 var app = angular.module("socialNetworkApp");
 
-app.controller("homeController", function ($scope, $cookies, AuthenticationServices) {
-    console.log("Home Controller");
+app.controller("mainController", function ($scope, $cookies, $auth, AuthenticationServices) {
+    console.log("Main Controller");
 
 
-    AuthenticationServices.loggedInState()
-        .then(function (response) {
-            $scope.activeUser = response.data;
-        })
-        .catch(function () {
-            $scope.activeUser = null;
-        })
+    $scope.isAuthenticated = function () {
+        return $auth.isAuthenticated();
+    };
 
 
     $scope.submitLogin = function (credentials) {
-        console.log(credentials)
-        AuthenticationServices.login(credentials)
-            .then(function (response) {
-                console.log(response.data);
-                return AuthenticationServices.loggedInState()
-            })
-            .then(function (response) {
-                $scope.activeUser = response.data
-            })
-            .catch(function (error) {
-                console.log("Error: ", error);
-            })
+        $auth.login(credentials);
     };
 
     $scope.submitLogout = function () {
-        AuthenticationServices.logout()
-            .then(function (response) {
-                $scope.activeUser = null;
-            })
-            .catch(function (error) {
-                console.log("Error: ", error);
-            })
-    }
+        return $auth.logout();
+    };
 
 });
+
+app.controller("authentFormController", function ($scope, $state, AuthenticationServices, $auth) {
+    console.log("Authenticatate Form Controller");
+    $scope.currentState = $state.current.name;
+
+    $scope.authenticate = function (provider) {
+        $auth.authenticate(provider);
+    };
+
+
+});
+
 
 app.controller("registrationController", function ($scope, $state, AuthenticationServices) {
    console.log("Registration")

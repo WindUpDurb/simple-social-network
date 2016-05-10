@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>Social Network</title>
 
-    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+
+    <script src="/bower_components/satellizer/satellizer.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
@@ -16,8 +16,6 @@
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bower_components/bootstrap-material-design/dist/css/ripples.min.css">
     <link rel="stylesheet" href="/bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css">
-    <script src="/bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
-    <script src="/bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
 
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./simple-sidebar.css">
@@ -28,7 +26,7 @@
 
 
 </head>
-<body ng-app="socialNetworkApp" ng-controller="homeController">
+<body ng-app="socialNetworkApp" ng-controller="mainController">
 
 <div class="navbar navbar-default">
     <div class="container-fluid">
@@ -38,7 +36,7 @@
 
 
         <!--Login Field if !activeuser-->
-        <div class="navbar-form navbar-right" ng-if="!activeUser">
+        <div class="navbar-form navbar-right" ng-hide="isAuthenticated()">
             <form id="login"  ng-submit="submitLogin(credentials)">
                 <fieldset>
 
@@ -66,7 +64,7 @@
 
         <!--Logout field if activeUser-->
 
-        <div class="navbar-form navbar-right" ng-if="activeUser">
+        <div class="navbar-form navbar-right" ng-show="isAuthenticated()">
             <div class="col-md-10">
                 Hello, {{activeUser.username}}
             </div>
@@ -81,7 +79,9 @@
 <br>
 <!--End of the Header/Navbar-->
 
-<div id="wrapper" ng-if="activeUser">
+<div ng-if="!isAuthenticated()" ui-view="login"></div>
+
+<div id="wrapper" ng-show="isAuthenticated()">
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
 
@@ -104,13 +104,10 @@
                 <div class="col-lg-12">
 
                     <!--Navbar-->
-
                     <div class="container">
                         <ui-view>
-
                         </ui-view>
                     </div>
-
 
                 </div>
             </div>
