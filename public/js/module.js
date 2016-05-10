@@ -12,6 +12,10 @@ app.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
         clientId : "40ffd5d50a6a1e5cc866"
     });
 
+    $authProvider.google({
+        clientId : "142722290947-shap2c9oha9m43mh7dfubmbkbio10fo1.apps.googleusercontent.com"
+    });
+
     $stateProvider
         .state("home", {
             url : "/",
@@ -21,7 +25,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
                     templateUrl : "/html/home.html"
                 },
 
-                "login" : {
+                "login-register" : {
                     controller : "authentFormController",
                     templateUrl : "/html/login.html"
                 }
@@ -30,8 +34,13 @@ app.config(function ($stateProvider, $urlRouterProvider, $authProvider) {
         })
         .state("registration", {
             url : "/register",
-            controller : "registrationController",
-            templateUrl : "/html/registration.html"
+            views : {
+                "login-register" : {
+                    controller : "authentFormController",
+                    templateUrl : "/html/registration.html"
+                }
+            }
+
         })
         .state("editProfile", {
             url : "/editProfile",

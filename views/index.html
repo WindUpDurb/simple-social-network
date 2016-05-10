@@ -42,7 +42,7 @@
 
                     <div class="form-group">
                         <div class="col-md-10">
-                            <input ng-model="credentials.username" type="text" class="form-control" id="inputEmail" placeholder="Username">
+                            <input ng-model="credentials.email" type="email" class="form-control" id="inputEmail" placeholder="Email">
 
                         </div>
 
@@ -79,7 +79,7 @@
 <br>
 <!--End of the Header/Navbar-->
 
-<div ng-if="!isAuthenticated()" ui-view="login"></div>
+<div ng-if="!isAuthenticated()" ui-view="login-register"></div>
 
 <div id="wrapper" ng-show="isAuthenticated()">
     <!-- Sidebar -->

@@ -9,7 +9,8 @@ const JWT_SECRET = process.env.JWT_SECRET;
 var userSchema = new mongoose.Schema({
     email : { type : String, unique : true},
     password : { type : String},
-    github : { type: String }
+    github : { type: String },
+    google : { type : String }
 });
 
 userSchema.statics.register = function (userObject, callback) {
@@ -52,7 +53,6 @@ userSchema.statics.isLoggedIn = function (request, response, next) {
 
 userSchema.statics.authenticate = function (loginData, callback) {
     User.findOne({email : loginData.email}, function (error, userData) {
-        console.log("here1")
         if (error || !userData) return callback(error || {error : "Login Failed. Email or Password is Incorrect"});
 
         bcrypt.compare(loginData.password, userData.password, function (error, isGood) {

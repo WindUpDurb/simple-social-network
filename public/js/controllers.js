@@ -12,7 +12,13 @@ app.controller("mainController", function ($scope, $cookies, $auth, Authenticati
 
 
     $scope.submitLogin = function (credentials) {
-        $auth.login(credentials);
+        $auth.login(credentials)
+            .then(function (response) {
+
+            })
+            .catch(function (error) {
+                console.log("Error: ", error);
+            });
     };
 
     $scope.submitLogout = function () {
@@ -29,25 +35,24 @@ app.controller("authentFormController", function ($scope, $state, Authentication
         $auth.authenticate(provider);
     };
 
-
-});
-
-
-app.controller("registrationController", function ($scope, $state, AuthenticationServices) {
-   console.log("Registration")
-
     $scope.submitRegistration = function (newAccount) {
-        AuthenticationServices.registerNewAccount(newAccount)
-            .then(function (response) {
-                alert("Your account has been created");
-                $state.go("home");
-            })
-            .catch(function (error) {
-                console.log("Error: ", error);
-            })
+
+        if (newAccount.password !== newAccount.passwordConfirm) {
+            alert("Passwords must match.")
+        } else {
+            $auth.signup(newAccount)
+                .then(function (response) {
+                    $state.go("home");
+                })
+                .catch(function (error) {
+                    console.log("Error: ", error);
+                })
+        }
     }
 
 });
+
+
 
 
 app.controller("editProfileController", function () {
